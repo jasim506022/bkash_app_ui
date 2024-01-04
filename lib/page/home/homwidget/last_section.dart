@@ -30,16 +30,17 @@ class _LastSectionWidgetState extends State<LastSectionWidget> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Image(
-                  image: const AssetImage('assets/last banner.jpg'),
+                  image: const AssetImage('assets/light_bulb.png'),
                   width: mq.width * .44,
+                  height: mq.height * .1,
                 ),
                 const Text(
                   'Win Bike, TV,AC',
                   style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
                 ),
                 const Text('With Cashback in Every Minute'),
-                const SizedBox(
-                  height: 8,
+                SizedBox(
+                  height: mq.height * .01,
                 ),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(

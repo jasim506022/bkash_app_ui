@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../const/const.dart';
 import '../../widget/card_design_widget.dart';
-import '../../widget/drawerbuttonwidget.dart';
-import '../../widget/drawwidget.dart';
+import '../../widget/drawer_button_widget.dart';
+import '../../widget/draw_widget.dart';
 import '../../widget/globalmethod.dart';
 import '../../widget/search_name_number_widget.dart';
 import '../../widget/top_to_scan_widget.dart';
@@ -23,7 +23,7 @@ class _PaymentPageState extends State<PaymentPage> {
       key: scaffoldKey,
       appBar: AppBar(
         title: const Text(
-          "Mobile Recharge",
+          "Payment",
         ),
         actions: [DrawerButtonWidget(scaffoldKey: scaffoldKey)],
       ),

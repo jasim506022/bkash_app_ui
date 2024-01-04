@@ -1,22 +1,21 @@
-import 'package:bkash_app_ui/widget/card_design_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../const/const.dart';
 import '../../globalcolor.dart';
 import '../../model/contractmodel.dart';
+import '../../widget/card_design_widget.dart';
 import '../../widget/contract_model_widget.dart';
-import '../../widget/drawerbuttonwidget.dart';
-import '../../widget/drawwidget.dart';
+import '../../widget/drawer_button_widget.dart';
+import '../../widget/draw_widget.dart';
 import 'confirmrechargemoney.dart';
 
 class RechargeAmountPage extends StatefulWidget {
   const RechargeAmountPage({
     super.key,
-    required this.contractModel,
     required this.image,
   });
 
-  final ContractModel contractModel;
   final String image;
 
   @override
@@ -26,9 +25,12 @@ class RechargeAmountPage extends StatefulWidget {
 class _RechargeAmountPageState extends State<RechargeAmountPage> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   int currentIndex = 0;
-  int acount = 0;
+  int account = 0;
   @override
   Widget build(BuildContext context) {
+    final contractModel = Provider.of<ContractModel>(
+      context,
+    );
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -60,9 +62,7 @@ class _RechargeAmountPageState extends State<RechargeAmountPage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          ContractModelWidget(
-                            contractModel: widget.contractModel,
-                          ),
+                          const ContractModelWidget(),
                           Container(
                             height: mq.height * .07,
                             width: mq.height * .07,
@@ -147,7 +147,7 @@ class _RechargeAmountPageState extends State<RechargeAmountPage> {
                               flex: 7,
                               child: TextFormField(
                                 onChanged: (value) =>
-                                    setState(() => acount = int.parse(value)),
+                                    setState(() => account = int.parse(value)),
                                 textAlign: TextAlign.center,
                                 keyboardType: TextInputType.number,
                                 style: const TextStyle(
@@ -161,12 +161,14 @@ class _RechargeAmountPageState extends State<RechargeAmountPage> {
                                             context,
                                             MaterialPageRoute(
                                               builder: (context) =>
-                                                  ConfirmRechargeAmount(
-                                                amount: acount.toString(),
-                                                image: widget.image,
-                                                contractModel:
-                                                    widget.contractModel,
-                                              ),
+                                                  ChangeNotifierProvider.value(
+                                                      value: contractModel,
+                                                      child:
+                                                          ConfirmRechargeAmount(
+                                                        amount:
+                                                            account.toString(),
+                                                        image: widget.image,
+                                                      )),
                                             ));
                                       },
                                       icon: Icon(

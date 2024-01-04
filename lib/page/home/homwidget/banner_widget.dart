@@ -14,15 +14,8 @@ class BannerWidget extends StatefulWidget {
 
 class _BannerWidgetState extends State<BannerWidget> {
   final _pageController = PageController(viewportFraction: 1, initialPage: 1);
-  int currentPage = 1;
 
-  List<String> assetImages = [
-    'assets/banar/banner_one.png',
-    'assets/banar/banner_three.png',
-    'assets/banar/banner_two.png',
-    'assets/banar/banner.jpg',
-    'assets/banar/Lakhpoti-bKash.png'
-  ];
+  int currentPage = 1;
 
   @override
   void initState() {
@@ -64,12 +57,6 @@ class _BannerWidgetState extends State<BannerWidget> {
               controller: _pageController,
               itemCount: assetImages.length,
               onPageChanged: (page) => setState(() => currentPage = page),
-
-              // (page) {
-              //   setState(() {
-              //     currentPage = page;
-              //   });
-              // },
               itemBuilder: (context, pagePosition) {
                 return Container(
                     margin: const EdgeInsets.all(5),

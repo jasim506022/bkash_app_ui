@@ -9,4 +9,5 @@ class AppsRoutes {
   static const String cashOutPage = "/cashOutPage";
   static const String paymentPage = "/paymentPage";
   static const String payBill = "/payBill";
+  static const String profilePage = "/profilePage";
 }

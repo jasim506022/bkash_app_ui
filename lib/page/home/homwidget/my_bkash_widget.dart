@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../../const/const.dart';
 import '../../../model/itemmodel.dart';
-import '../../../widget/globalmethod.dart';
+import '../../../widget/home_page_row_widget.dart';
+import 'horizontal_list_view_builder_widget.dart';
 
 class MyBkashWidget extends StatelessWidget {
   const MyBkashWidget({Key? key}) : super(key: key);
@@ -12,13 +13,13 @@ class MyBkashWidget extends StatelessWidget {
       padding: EdgeInsets.all(mq.width * .024),
       child: Column(
         children: [
-          GlobalMethod.homePageRowWidget(
-              context: context, list: myBikashWidgetList, title: 'My Bkash'),
-        GlobalMethod.  gridViewHorizontalDirector(list: myBikashWidgetList),
+          HomePageRowWidget(
+            itemModel: myBikashWidgetList,
+            title: 'My Bkash',
+          ),
+          HorizontalListViewBuilderWidget(list: myBikashWidgetList),
         ],
       ),
     );
   }
-
-
 }

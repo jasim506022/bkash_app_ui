@@ -5,18 +5,15 @@ import 'package:fluttertoast/fluttertoast.dart';
 import '../const/approutes.dart';
 import '../const/const.dart';
 import '../globalcolor.dart';
-import '../model/contractmodel.dart';
 import 'contract_model_widget.dart';
 import 'globalmethod.dart';
 
 class LastConfirmShowDialog extends StatelessWidget {
   const LastConfirmShowDialog({
     super.key,
-    required this.contractModel,
     required this.title,
   });
 
-  final ContractModel contractModel;
   final String title;
 
   @override
@@ -93,9 +90,7 @@ class LastConfirmShowDialog extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            ContractModelWidget(
-                              contractModel: contractModel,
-                            ),
+                            const ContractModelWidget(),
                             Container(
                                 padding: EdgeInsets.symmetric(
                                     horizontal: mq.height * .033,
@@ -180,7 +175,7 @@ class LastConfirmShowDialog extends StatelessWidget {
                                           toastLength: Toast.LENGTH_SHORT,
                                           gravity: ToastGravity.CENTER,
                                           timeInSecForIosWeb: 1,
-                                          backgroundColor: Colors.red,
+                                          backgroundColor: pink,
                                           textColor: white,
                                           fontSize: 16.0);
                                     },

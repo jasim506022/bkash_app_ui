@@ -4,10 +4,10 @@ import '../../const/const.dart';
 import '../../model/contractmodel.dart';
 import '../../widget/card_design_widget.dart';
 import '../../widget/contract_list_widget.dart';
-import '../../widget/contract_model_widget.dart';
-import '../../widget/drawerbuttonwidget.dart';
-import '../../widget/drawwidget.dart';
-import '../../widget/globalmethod.dart';
+import '../../widget/drawer_button_widget.dart';
+import '../../widget/draw_widget.dart';
+
+import '../../widget/row_icon_title_widget.dart';
 import '../../widget/search_name_number_widget.dart';
 import 'amountsentmoneypage.dart';
 
@@ -35,34 +35,44 @@ class _SentMoneyPageState extends State<SentMoneyPage> {
         endDrawer: const DrawerWidget(),
         body: Padding(
           padding: EdgeInsets.symmetric(
-              horizontal: mq.width * .044, vertical: mq.height * .012),
+            horizontal: mq.width * .044,
+          ),
           child: SingleChildScrollView(
             child: Column(
               children: [
                 CardDesignWidget(
-                    widget: SearchNameNumberWidget(
-                  title: 'To',
-                  function: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              AmountSentMoneyPage(number: "01980846830"),
-                        ));
-                  },
-                )),
-                 CardDesignWidget(
-                    widget: RowIconTitleWidget(
-                  image: "assets/sentmoney/auto_instalment_deduction.png",
-                  title: "Your Auto Payment (0)",
-                )),
-                 CardDesignWidget(
-                    widget: RowIconTitleWidget(
-                  image: "assets/sentmoney/application_unsuccessful_icon.png",
-                  title: "Tap here to Send Money for free",
-                )),
-                _contractListWidget('Recent', recentList),
-                _contractListWidget('All Contact', allContractList),
+                  widget: SearchNameNumberWidget(
+                    title: 'To',
+                    function: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const AmountSentMoneyPage(
+                                number: "01980846830"),
+                          ));
+                    },
+                  ),
+                ),
+                const CardDesignWidget(
+                  widget: RowIconTitleWidget(
+                    image: "assets/sentmoney/auto_instalment_deduction.png",
+                    title: "Your Auto Payment (0)",
+                  ),
+                ),
+                const CardDesignWidget(
+                  widget: RowIconTitleWidget(
+                    image: "assets/sentmoney/application_unsuccessful_icon.png",
+                    title: "Tap here to Send Money for free",
+                  ),
+                ),
+                ContractListWidget(
+                    title: 'Recent',
+                    contractList: recentList,
+                    isSentMoney: true),
+                ContractListWidget(
+                    title: 'All Contact',
+                    contractList: allContractList,
+                    isSentMoney: true),
               ],
             ),
           ),
@@ -70,32 +80,4 @@ class _SentMoneyPageState extends State<SentMoneyPage> {
       ),
     );
   }
-
-  Widget _contractListWidget(String title, List<ContractModel> contractList) {
-    return ContractListWidget(
-      title: title,
-      contractList: contractList,
-      widget: ListView.builder(
-        physics: const NeverScrollableScrollPhysics(),
-        itemCount: contractList.length,
-        itemBuilder: (context, index) {
-          return ContractModelWidget(
-            contractModel: contractList[index],
-            function: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => AmountSentMoneyPage(
-                    contractModel: contractList[index],
-                  ),
-                ),
-              );
-            },
-          );
-        },
-      ),
-    );
-  }
-
-
 }

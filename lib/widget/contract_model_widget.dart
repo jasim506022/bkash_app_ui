@@ -1,30 +1,72 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../const/const.dart';
 import '../globalcolor.dart';
 import '../model/contractmodel.dart';
+import '../page/cashout/amountcashoutypage.dart';
+import '../page/recharge/widget/recharge_show_bottom_sheet_widget.dart';
+import '../page/sentmoney/amountsentmoneypage.dart';
 
-// ignore: must_be_immutable
 class ContractModelWidget extends StatelessWidget {
-  ContractModelWidget(
+  const ContractModelWidget(
       {super.key,
-      this.contractModel,
-      this.function,
       this.name,
       this.number,
       this.isRemove = false,
-      this.image});
-  ContractModel? contractModel;
-  Function? function;
-  String? name;
-  String? number;
-  String? image;
-  bool? isRemove;
+      this.image,
+      this.isSentMoney,
+      this.recharge,
+      this.cashout});
+  final String? name;
+  final String? number;
+  final String? image;
+  final bool? isRemove;
+  final bool? isSentMoney;
+  final bool? recharge;
+  final bool? cashout;
+
   @override
   Widget build(BuildContext context) {
+    ContractModel contractModel = Provider.of<ContractModel>(
+      context,
+    );
     return InkWell(
       onTap: () {
-        function!();
+        if (cashout!) {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ChangeNotifierProvider.value(
+                    value: contractModel, child: const CashOutAmountPage()),
+              ));
+        }
+
+        if (isSentMoney!) {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ChangeNotifierProvider.value(
+                    value: contractModel, child: const AmountSentMoneyPage()),
+              ));
+        }
+        if (recharge!) {
+          showBottomSheet(
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20),
+                topRight: Radius.circular(20),
+              ),
+            ),
+            enableDrag: true,
+            context: context,
+            builder: (context) {
+              return RechargeShowBottoSheetWidget(
+                contractModel: contractModel,
+              );
+            },
+          );
+        }
       },
       child: Padding(
         padding: const EdgeInsets.all(10),
@@ -51,7 +93,7 @@ class ContractModelWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  name ?? contractModel!.name,
+                  name ?? contractModel.name,
                   style: const TextStyle(
                       color: Colors.black87,
                       fontWeight: FontWeight.w700,
@@ -61,7 +103,7 @@ class ContractModelWidget extends StatelessWidget {
                   height: mq.width * .005,
                 ),
                 Text(
-                  number ?? contractModel!.number,
+                  number ?? contractModel.number,
                   style: const TextStyle(
                       color: Colors.black54,
                       fontWeight: FontWeight.normal,
@@ -82,3 +124,13 @@ class ContractModelWidget extends StatelessWidget {
     );
   }
 }
+
+
+
+
+      // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(
+        //     builder: (context) => const AmountSentMoneyPage(),
+        //   ),
+        // );

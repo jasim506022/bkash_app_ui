@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 import '../../const/const.dart';
 import '../../globalcolor.dart';
-import '../../widget/drawerbuttonwidget.dart';
-import '../../widget/drawwidget.dart';
-import 'tabone.dart';
+import '../../widget/drawer_button_widget.dart';
+import '../../widget/draw_widget.dart';
+import 'agentab.dart';
 
 class CashOutPage extends StatefulWidget {
   const CashOutPage({super.key});
@@ -42,9 +42,10 @@ class _CashOutPageState extends State<CashOutPage>
       endDrawer: const DrawerWidget(),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+          padding: EdgeInsets.symmetric(
+              horizontal: mq.width * .033, vertical: mq.height * .018),
           child: SizedBox(
-            height: MediaQuery.of(context).size.height,
+            height: mq.height,
             child: Column(
               children: [
                 Card(
@@ -62,43 +63,21 @@ class _CashOutPageState extends State<CashOutPage>
                           labelStyle: const TextStyle(
                               fontSize: 14, fontWeight: FontWeight.w700),
                           controller: tabController,
-                          tabs: [
-                            SizedBox(
-                              height: 60,
-                              width: mq.width,
-                              child: const Tab(
-                                child: Row(
-                                  children: [
-                                    Icon(Icons.home),
-                                    SizedBox(
-                                      width: 7,
-                                    ),
-                                    Text("Agent")
-                                  ],
-                                ),
-                              ),
+                          tabs: const [
+                            TabSizeWidget(
+                              icon: Icons.home,
+                              text: "Agent",
                             ),
-                            SizedBox(
-                              height: 60,
-                              width: mq.width,
-                              child: const Tab(
-                                child: Row(
-                                  children: [
-                                    Icon(Icons.atm_rounded),
-                                    SizedBox(
-                                      width: 7,
-                                    ),
-                                    Text("ATM")
-                                  ],
-                                ),
-                              ),
+                            TabSizeWidget(
+                              icon: Icons.atm_rounded,
+                              text: "ATM",
                             ),
                           ],
                         ))),
                 Expanded(
                     child: TabBarView(
                   controller: tabController,
-                  children: const [TabOnePage(), TabOnePage()],
+                  children: const [AgentTabPage(), AgentTabPage()],
                 ))
               ],
             ),
@@ -107,6 +86,33 @@ class _CashOutPageState extends State<CashOutPage>
       ),
     );
   }
+}
 
-  
+class TabSizeWidget extends StatelessWidget {
+  const TabSizeWidget({
+    super.key,
+    required this.icon,
+    required this.text,
+  });
+
+  final IconData icon;
+  final String text;
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: mq.height * .071,
+      width: mq.width,
+      child: Tab(
+        child: Row(
+          children: [
+            Icon(icon),
+            const SizedBox(
+              width: 7,
+            ),
+            Text(text)
+          ],
+        ),
+      ),
+    );
+  }
 }

@@ -18,8 +18,8 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
 
   @override
   void initState() {
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-        statusBarColor: Color(0xffF7F7F7),
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        statusBarColor: forgetBackgroundColor,
         statusBarIconBrightness: Brightness.dark));
     super.initState();
   }
@@ -29,7 +29,7 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        backgroundColor: const Color(0xffF7F7F7),
+        backgroundColor: forgetBackgroundColor,
         body: Column(
           children: [
             Expanded(

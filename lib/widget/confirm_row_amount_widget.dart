@@ -1,8 +1,7 @@
-
 import 'package:flutter/material.dart';
 
-class ConfirmAmountWidget extends StatelessWidget {
-  const ConfirmAmountWidget({
+class ConfirmRowAmountWidget extends StatelessWidget {
+  const ConfirmRowAmountWidget({
     super.key,
     required this.amount,
   });

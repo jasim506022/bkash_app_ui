@@ -14,7 +14,7 @@ class CardDesignWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.symmetric(vertical: 2),
+      margin: const EdgeInsets.symmetric(vertical: 1),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(5),
       ),
@@ -23,7 +23,7 @@ class CardDesignWidget extends StatelessWidget {
         color: white,
         child: Padding(
             padding: EdgeInsets.symmetric(
-                horizontal: mq.width * .033, vertical: mq.height * .008),
+                horizontal: mq.width * .033, vertical: mq.height * .013),
             child: widget),
       ),
     );

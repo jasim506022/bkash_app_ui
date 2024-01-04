@@ -1,20 +1,19 @@
-import 'package:bkash_app_ui/model/contractmodel.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../const/const.dart';
 import '../../globalcolor.dart';
+import '../../model/contractmodel.dart';
 import '../../widget/card_design_widget.dart';
 import '../../widget/contract_model_widget.dart';
-import '../../widget/drawerbuttonwidget.dart';
-import '../../widget/drawwidget.dart';
+import '../../widget/drawer_button_widget.dart';
+import '../../widget/draw_widget.dart';
 import 'confirmcashout.dart';
 
-// ignore: must_be_immutable
 class CashOutAmountPage extends StatefulWidget {
-  CashOutAmountPage({super.key, this.contractModel, this.number});
+  const CashOutAmountPage({super.key, this.number});
 
-  ContractModel? contractModel;
-  String? number;
+  final String? number;
 
   @override
   State<CashOutAmountPage> createState() => _CashOutAmountPageState();
@@ -23,9 +22,12 @@ class CashOutAmountPage extends StatefulWidget {
 class _CashOutAmountPageState extends State<CashOutAmountPage> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   int currentIndex = 0;
-  String acount = "";
+  String amount = "";
   @override
   Widget build(BuildContext context) {
+    ContractModel contractModel = Provider.of<ContractModel>(
+      context,
+    );
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -42,21 +44,19 @@ class _CashOutAmountPageState extends State<CashOutAmountPage> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                CardDesignWidget(
+                const CardDesignWidget(
                   widget: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
+                      Text(
                         "To",
                         style: TextStyle(
                             color: Colors.black54,
                             fontSize: 14,
                             fontWeight: FontWeight.bold),
                       ),
-                      ContractModelWidget(
-                        contractModel: widget.contractModel!,
-                      )
+                      ContractModelWidget()
                     ],
                   ),
                 ),
@@ -73,7 +73,7 @@ class _CashOutAmountPageState extends State<CashOutAmountPage> {
                             fontWeight: FontWeight.bold),
                       ),
                       TextFormField(
-                        onChanged: (value) => setState(() => acount = value),
+                        onChanged: (value) => setState(() => amount = value),
                         textAlign: TextAlign.center,
                         keyboardType: TextInputType.number,
                         style: const TextStyle(
@@ -87,10 +87,11 @@ class _CashOutAmountPageState extends State<CashOutAmountPage> {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) =>
-                                          ConfirmCashOutPage(
-                                        amount: acount,
-                                        contractModel: widget.contractModel!,
-                                      ),
+                                          ChangeNotifierProvider.value(
+                                              value: contractModel,
+                                              child: ConfirmCashOutPage(
+                                                amount: amount,
+                                              )),
                                     ));
                               },
                               icon: Icon(

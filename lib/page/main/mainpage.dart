@@ -4,6 +4,7 @@ import 'package:curved_nav_bar/flutter_curved_bottom_nav_bar.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+import '../../const/const.dart';
 import '../../globalcolor.dart';
 import '../home/homepage.dart';
 
@@ -38,13 +39,13 @@ class _MainPageState extends State<MainPage> {
       bodyItems: [
         const HomePage(),
         Container(
-          height: MediaQuery.of(context).size.height,
-          color: Colors.pinkAccent,
+          height: mq.height,
+          color: pink,
         )
       ],
       actionBarView: Container(
-        height: MediaQuery.of(context).size.height,
-        color: Colors.orange,
+        height: mq.height,
+        color: orange,
       ),
     );
   }

@@ -1,25 +1,27 @@
 import '../const/approutes.dart';
 
-class ItemModel {
+class GovermentModel {
   String image;
   String title;
   String subtitle;
 
-  ItemModel(this.image, this.title, this.subtitle);
+  GovermentModel(this.image, this.title, this.subtitle);
 }
 
-List<ItemModel> govermentList = [
-  ItemModel('assets/send_money.jpg', 'Send Money', AppsRoutes.sentmoneyPage),
-  ItemModel('assets/mobile_recharge.jpg', 'Recharge', AppsRoutes.rechargePage),
-  ItemModel('assets/cash_out.jpg', 'Cash Out', AppsRoutes.cashOutPage),
-  ItemModel('assets/make_payment.jpg', 'Payment', AppsRoutes.paymentPage),
-  ItemModel('assets/add_money.jpg', 'Add Money', AppsRoutes.addMoneyPage),
-  ItemModel('assets/pay_bill.jpg', 'Pay Bill', AppsRoutes.payBill),
-  ItemModel('assets/savings.png', 'Savings', AppsRoutes.addMoneyPage),
-  ItemModel(
+List<GovermentModel> govermentList = [
+  GovermentModel(
+      'assets/send_money.jpg', 'Send Money', AppsRoutes.sentmoneyPage),
+  GovermentModel(
+      'assets/mobile_recharge.jpg', 'Recharge', AppsRoutes.rechargePage),
+  GovermentModel('assets/cash_out.jpg', 'Cash Out', AppsRoutes.cashOutPage),
+  GovermentModel('assets/make_payment.jpg', 'Payment', AppsRoutes.paymentPage),
+  GovermentModel('assets/add_money.jpg', 'Add Money', AppsRoutes.addMoneyPage),
+  GovermentModel('assets/pay_bill.jpg', 'Pay Bill', AppsRoutes.payBill),
+  GovermentModel('assets/savings.png', 'Savings', AppsRoutes.addMoneyPage),
+  GovermentModel(
       'assets/loan-removebg-preview.png', 'Loan', AppsRoutes.addMoneyPage),
-  ItemModel('assets/bank_to_cash-removebg-preview.png', 'Remittance',
+  GovermentModel('assets/bank_to_cash-removebg-preview.png', 'Remittance',
       AppsRoutes.addMoneyPage),
-  ItemModel('assets/bangla_qr-removebg-preview (1).png', 'Bangla QR',
+  GovermentModel('assets/bangla_qr-removebg-preview (1).png', 'Bangla QR',
       AppsRoutes.addMoneyPage),
 ];

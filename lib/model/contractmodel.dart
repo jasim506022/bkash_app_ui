@@ -1,4 +1,6 @@
-class ContractModel {
+import 'package:flutter/material.dart';
+
+class ContractModel with ChangeNotifier {
   String name;
   String number;
 

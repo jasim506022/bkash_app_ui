@@ -6,15 +6,16 @@ import '../model/itemmodel.dart';
 import 'globalmethod.dart';
 
 class BottomModelWidget extends StatelessWidget {
-  const BottomModelWidget({Key? key, required this.list, required this.title})
+  const BottomModelWidget(
+      {Key? key, required this.itemList, required this.title})
       : super(key: key);
 
-  final List<ItemModel> list;
+  final List<ItemModel> itemList;
   final String title;
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: mq.height * .47,
+      height: mq.height * .4,
       color: white,
       child: Container(
         margin: EdgeInsets.all(mq.width * .036),
@@ -49,7 +50,7 @@ class BottomModelWidget extends StatelessWidget {
                     itemBuilder: (context, index) {
                       return Container(
                         child: GlobalMethod.menuItem(
-                            list[index].image, list[index].title),
+                            itemList[index].image, itemList[index].title),
                       );
                     },
                     itemCount: 8,

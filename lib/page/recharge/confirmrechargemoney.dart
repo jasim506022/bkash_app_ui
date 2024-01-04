@@ -1,26 +1,24 @@
 import 'package:flutter/material.dart';
-
+import 'package:provider/provider.dart';
 
 import '../../const/const.dart';
 import '../../globalcolor.dart';
 import '../../model/contractmodel.dart';
 import '../../widget/card_design_widget.dart';
-import '../../widget/confirmamountwidget.dart';
-import '../../widget/confirmshowdialogwidget.dart';
+import '../../widget/confirm_row_amount_widget.dart';
+import '../../widget/confirm_show_dialog_widget.dart';
 import '../../widget/contract_model_widget.dart';
-import '../../widget/drawerbuttonwidget.dart';
-import '../../widget/drawwidget.dart';
+import '../../widget/drawer_button_widget.dart';
+import '../../widget/draw_widget.dart';
 import '../../widget/globalmethod.dart';
 
-
 class ConfirmRechargeAmount extends StatefulWidget {
-  const ConfirmRechargeAmount(
-      {super.key,
-      required this.contractModel,
-      required this.amount,
-      required this.image});
+  const ConfirmRechargeAmount({
+    super.key,
+    required this.amount,
+    required this.image,
+  });
 
-  final ContractModel contractModel;
   final String amount;
   final String image;
 
@@ -34,6 +32,9 @@ class _ConfirmRechargeAmountState extends State<ConfirmRechargeAmount> {
   int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
+    final contractModel = Provider.of<ContractModel>(
+      context,
+    );
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
@@ -63,9 +64,7 @@ class _ConfirmRechargeAmountState extends State<ConfirmRechargeAmount> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        ContractModelWidget(
-                          contractModel: widget.contractModel,
-                        ),
+                        const ContractModelWidget(),
                         Container(
                           height: mq.height * .07,
                           width: mq.height * .07,
@@ -90,7 +89,7 @@ class _ConfirmRechargeAmountState extends State<ConfirmRechargeAmount> {
                   children: [
                     Padding(
                       padding: EdgeInsets.symmetric(vertical: mq.height * .01),
-                      child: ConfirmAmountWidget(amount: widget.amount),
+                      child: ConfirmRowAmountWidget(amount: widget.amount),
                     ),
                     GlobalMethod.dividerLine(),
                     Row(
@@ -121,29 +120,7 @@ class _ConfirmRechargeAmountState extends State<ConfirmRechargeAmount> {
                                   return InkWell(
                                     onTap: () =>
                                         setState(() => currentIndex = index),
-                                    child: Container(
-                                      alignment: Alignment.center,
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 8, horizontal: 15),
-                                      margin: const EdgeInsets.symmetric(
-                                          vertical: 15, horizontal: 10),
-                                      decoration: BoxDecoration(
-                                          color: currentIndex == index
-                                              ? pink
-                                              : white,
-                                          border:
-                                              Border.all(color: pink, width: 1),
-                                          borderRadius:
-                                              BorderRadius.circular(15)),
-                                      child: Text(
-                                        simName[index],
-                                        style: TextStyle(
-                                            color: currentIndex == index
-                                                ? white
-                                                : pink,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
+                                    child: _buildSelectSIMItem(index),
                                   );
                                 },
                               ),
@@ -173,11 +150,12 @@ class _ConfirmRechargeAmountState extends State<ConfirmRechargeAmount> {
                                 context: context,
                                 barrierDismissible: true,
                                 builder: (context) {
-                                  return ConfirmShowDialogWidget(
-                                    contractModel: widget.contractModel,
-                                    title: 'Mobile Recharge',
-                                    isSentMoney: false,
-                                  );
+                                  return ChangeNotifierProvider.value(
+                                      value: contractModel,
+                                      child: const ConfirmShowDialogWidget(
+                                        title: 'Mobile Recharge',
+                                        isSentMoney: false,
+                                      ));
                                 },
                               );
                             },
@@ -197,58 +175,6 @@ class _ConfirmRechargeAmountState extends State<ConfirmRechargeAmount> {
                   ],
                 ),
               ),
-              /*
-              Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                color: white,
-                child: Container(
-                  color: Colors.white,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 15, vertical: 10),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        TextFormField(
-                          keyboardType: TextInputType.visiblePassword,
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(
-                              color: Colors.black87,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w800),
-                          decoration: InputDecoration(
-                              prefixIcon: Icon(
-                                Icons.lock,
-                                color: pink,
-                                size: 30,
-                              ),
-                              suffixIcon: IconButton(
-                                onPressed: () {
-                                  _sentShowDialog(context);
-                                },
-                                icon: const Icon(
-                                  Icons.arrow_forward,
-                                  color: Colors.grey,
-                                  size: 30,
-                                ),
-                              ),
-                              hintText: "Enter PIN",
-                              hintStyle: const TextStyle(
-                                  color: Colors.black45,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500),
-                              border: InputBorder.none),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            
-            */
             ],
           ),
         ),
@@ -256,7 +182,23 @@ class _ConfirmRechargeAmountState extends State<ConfirmRechargeAmount> {
     );
   }
 
-  List<String> simName = ["Prepaid", "Postpaid"];
+  Container _buildSelectSIMItem(int index) {
+    return Container(
+      alignment: Alignment.center,
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
+      margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+      decoration: BoxDecoration(
+          color: currentIndex == index ? pink : white,
+          border: Border.all(color: pink, width: 1),
+          borderRadius: BorderRadius.circular(15)),
+      child: Text(
+        simName[index],
+        style: TextStyle(
+            color: currentIndex == index ? white : pink,
+            fontWeight: FontWeight.bold),
+      ),
+    );
+  }
 
-  
+  List<String> simName = ["Prepaid", "Postpaid"];
 }

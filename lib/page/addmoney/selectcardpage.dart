@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 
 import '../../const/const.dart';
 import '../../globalcolor.dart';
-import '../../widget/drawerbuttonwidget.dart';
-import '../../widget/drawwidget.dart';
+import '../../widget/drawer_button_widget.dart';
+import '../../widget/draw_widget.dart';
 import '../../widget/globalmethod.dart';
+import '../../widget/row_icon_title_widget.dart';
 import 'cardtobkash.dart';
 
 class SelectCardPage extends StatefulWidget {
@@ -57,8 +58,8 @@ class _SelectCardPageState extends State<SelectCardPage> {
                         ),
                       ),
                       GlobalMethod.dividerLine(),
-                      Padding(
-                          padding: const EdgeInsets.symmetric(
+                      const Padding(
+                          padding: EdgeInsets.symmetric(
                               horizontal: 10, vertical: 10),
                           child: RowIconTitleWidget(
                             image: "assets/mastercard.png",
@@ -73,8 +74,8 @@ class _SelectCardPageState extends State<SelectCardPage> {
                                 builder: (context) => const CardToBkash(),
                               ));
                         },
-                        child: Padding(
-                            padding: const EdgeInsets.symmetric(
+                        child: const Padding(
+                            padding: EdgeInsets.symmetric(
                                 horizontal: 10, vertical: 10),
                             child: RowIconTitleWidget(
                               image: "assets/visa.png",

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../const/const.dart';
 import '../globalcolor.dart';
@@ -7,20 +8,18 @@ import 'contract_model_widget.dart';
 import 'globalmethod.dart';
 import 'last_confirm_show_dialog_widget.dart';
 
-// ignore: must_be_immutable
 class ConfirmShowDialogWidget extends StatelessWidget {
-  ConfirmShowDialogWidget(
-      {super.key,
-      required this.contractModel,
-      required this.title,
-      this.isSentMoney = false});
+  const ConfirmShowDialogWidget(
+      {super.key, required this.title, this.isSentMoney = false});
 
-  final ContractModel contractModel;
   final String title;
-  bool? isSentMoney;
+  final bool? isSentMoney;
 
   @override
   Widget build(BuildContext context) {
+    final contractModel = Provider.of<ContractModel>(
+      context,
+    );
     return Dialog(
       insetPadding: EdgeInsets.zero,
       child: Container(
@@ -70,7 +69,7 @@ class ConfirmShowDialogWidget extends StatelessWidget {
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold)),
                       ])),
-                      ContractModelWidget(contractModel: contractModel),
+                      const ContractModelWidget(),
                     ],
                   ),
                 ),
@@ -220,10 +219,11 @@ class ConfirmShowDialogWidget extends StatelessWidget {
                   showDialog(
                     context: context,
                     builder: (context) {
-                      return LastConfirmShowDialog(
-                        contractModel: contractModel,
-                        title: title,
-                      );
+                      return ChangeNotifierProvider.value(
+                          value: contractModel,
+                          child: LastConfirmShowDialog(
+                            title: title,
+                          ));
                     },
                   );
                 },

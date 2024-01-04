@@ -1,16 +1,17 @@
+import 'package:bkash_app_ui/const/approutes.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../const/const.dart';
 import '../../globalcolor.dart';
 import '../../service/provider/balanceanimationprovider.dart';
-import '../../widget/drawwidget.dart';
-import 'homwidget/bannerwidget.dart';
+import '../../widget/draw_widget.dart';
+import 'homwidget/banner_widget.dart';
 import 'homwidget/big_banner_widget.dart';
-import 'homwidget/bkashitemwidget.dart';
+import 'homwidget/bkash_item_widget.dart';
 import 'homwidget/last_section.dart';
 import 'homwidget/more_section_widget.dart';
-import 'homwidget/mybkashwidget.dart';
+import 'homwidget/my_bkash_widget.dart';
 import 'homwidget/offeres_widget.dart';
 import 'homwidget/suggestion_widget.dart';
 
@@ -43,15 +44,20 @@ class _HomePageState extends State<HomePage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Padding(
-                      padding: EdgeInsets.only(
-                          top: mq.height * .006,
-                          left: mq.width * .027,
-                          bottom: mq.height * .005),
-                      child: CircleAvatar(
-                        radius: mq.width * .063,
-                        backgroundColor: Colors.grey[200],
-                        backgroundImage: const AssetImage('assets/jasim.jpg'),
+                    InkWell(
+                      onTap: () {
+                        Navigator.pushNamed(context, AppsRoutes.profilePage);
+                      },
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                            top: mq.height * .006,
+                            left: mq.width * .027,
+                            bottom: mq.height * .005),
+                        child: CircleAvatar(
+                          radius: mq.width * .063,
+                          backgroundColor: Colors.grey[200],
+                          backgroundImage: const AssetImage('assets/jasim.jpg'),
+                        ),
                       ),
                     ),
                     SizedBox(width: mq.width * .022),
@@ -198,7 +204,6 @@ class _HomePageState extends State<HomePage> {
         ),
         endDrawer: const DrawerWidget());
   }
-
 }
 
 Widget _buildAction(String assetPath, {VoidCallback? onTap}) {

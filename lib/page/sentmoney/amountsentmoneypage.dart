@@ -1,23 +1,23 @@
 import 'package:bkash_app_ui/widget/card_design_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../const/const.dart';
 import '../../globalcolor.dart';
 import '../../model/contractmodel.dart';
 import '../../model/itemmodel.dart';
 import '../../widget/contract_model_widget.dart';
-import '../../widget/drawerbuttonwidget.dart';
-import '../../widget/drawwidget.dart';
-import '../../widget/globalmethod.dart';
+import '../../widget/drawer_button_widget.dart';
+import '../../widget/draw_widget.dart';
+
+import '../../widget/row_icon_title_widget.dart';
 import 'confirmsentmoney.dart';
 import 'widget/select_item_to_sent_money_widget.dart';
 
-// ignore: must_be_immutable
 class AmountSentMoneyPage extends StatefulWidget {
-  AmountSentMoneyPage({super.key, this.contractModel, this.number});
+  const AmountSentMoneyPage({super.key, this.number});
 
-  ContractModel? contractModel;
-  String? number;
+  final String? number;
 
   @override
   State<AmountSentMoneyPage> createState() => _AmountSentMoneyPageState();
@@ -26,9 +26,12 @@ class AmountSentMoneyPage extends StatefulWidget {
 class _AmountSentMoneyPageState extends State<AmountSentMoneyPage> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   int currentIndex = 0;
-  String acount = "";
+  String amount = "";
   @override
   Widget build(BuildContext context) {
+    final contractModel = Provider.of<ContractModel>(
+      context,
+    );
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -45,27 +48,22 @@ class _AmountSentMoneyPageState extends State<AmountSentMoneyPage> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                
-                CardDesignWidget(
+                const CardDesignWidget(
                   widget: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
+                      Text(
                         "To",
                         style: TextStyle(
                             color: Colors.black54,
                             fontSize: 14,
                             fontWeight: FontWeight.bold),
                       ),
-                      ContractModelWidget(
-                        contractModel: widget.contractModel!,
-                      )
+                      ContractModelWidget()
                     ],
                   ),
                 ),
-               
-               
                 CardDesignWidget(
                   widget: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -79,7 +77,7 @@ class _AmountSentMoneyPageState extends State<AmountSentMoneyPage> {
                             fontWeight: FontWeight.bold),
                       ),
                       TextFormField(
-                        onChanged: (value) => setState(() => acount = value),
+                        onChanged: (value) => setState(() => amount = value),
                         textAlign: TextAlign.center,
                         keyboardType: TextInputType.number,
                         style: const TextStyle(
@@ -92,10 +90,12 @@ class _AmountSentMoneyPageState extends State<AmountSentMoneyPage> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => ConfirmSentMoney(
-                                        amount: acount,
-                                        contractModel: widget.contractModel,
-                                      ),
+                                      builder: (context) =>
+                                          ChangeNotifierProvider.value(
+                                              value: contractModel,
+                                              child: ConfirmSentMoney(
+                                                amount: amount,
+                                              )),
                                     ));
                               },
                               icon: Icon(
@@ -170,7 +170,7 @@ class _AmountSentMoneyPageState extends State<AmountSentMoneyPage> {
                     ],
                   ),
                 ),
-                 CardDesignWidget(
+                const CardDesignWidget(
                     widget: RowIconTitleWidget(
                         image: "assets/sentmoney/typesentmoney/fnf.png",
                         title: "Add this number to Priyo List"))

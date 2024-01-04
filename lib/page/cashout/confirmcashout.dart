@@ -1,20 +1,19 @@
-import 'package:bkash_app_ui/const/const.dart';
-import 'package:bkash_app_ui/widget/confirmshowdialogwidget.dart';
-import 'package:bkash_app_ui/widget/drawwidget.dart';
-import 'package:bkash_app_ui/widget/globalmethod.dart';
+import 'package:bkash_app_ui/widget/confirm_show_dialog_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../../const/const.dart';
 import '../../globalcolor.dart';
 import '../../model/contractmodel.dart';
 import '../../widget/card_design_widget.dart';
-import '../../widget/confirmamountwidget.dart';
+import '../../widget/confirm_row_amount_widget.dart';
 import '../../widget/contract_model_widget.dart';
+import '../../widget/draw_widget.dart';
+import '../../widget/globalmethod.dart';
 
 class ConfirmCashOutPage extends StatefulWidget {
-  const ConfirmCashOutPage(
-      {super.key, required this.contractModel, required this.amount});
+  const ConfirmCashOutPage({super.key, required this.amount});
 
-  final ContractModel? contractModel;
   final String amount;
 
   @override
@@ -25,6 +24,9 @@ class _ConfirmCashOutPageState extends State<ConfirmCashOutPage> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
+    ContractModel contractModel = Provider.of<ContractModel>(
+      context,
+    );
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
@@ -58,19 +60,19 @@ class _ConfirmCashOutPageState extends State<ConfirmCashOutPage> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              CardDesignWidget(
+              const CardDesignWidget(
                 widget: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                    Text(
                       "To",
                       style: TextStyle(
                           color: Colors.black54,
                           fontSize: 14,
                           fontWeight: FontWeight.bold),
                     ),
-                    ContractModelWidget(contractModel: widget.contractModel!)
+                    ContractModelWidget()
                   ],
                 ),
               ),
@@ -79,7 +81,7 @@ class _ConfirmCashOutPageState extends State<ConfirmCashOutPage> {
                   children: [
                     Padding(
                       padding: EdgeInsets.symmetric(vertical: mq.height * .02),
-                      child: ConfirmAmountWidget(amount: widget.amount),
+                      child: ConfirmRowAmountWidget(amount: widget.amount),
                     ),
                     GlobalMethod.dividerLine(),
                     TextFormField(
@@ -102,11 +104,13 @@ class _ConfirmCashOutPageState extends State<ConfirmCashOutPage> {
                                 context: context,
                                 barrierDismissible: true,
                                 builder: (context) {
-                                  return ConfirmShowDialogWidget(
-                                    contractModel: widget.contractModel!,
-                                    title: 'Cash Out',
-                                    isSentMoney: true,
-                                  );
+                                  return ChangeNotifierProvider.value(
+                                      value: contractModel,
+                                      child: const ConfirmShowDialogWidget(
+                                        title: 'Cash Out',
+                                        isSentMoney: true,
+                                        
+                                      ));
                                 },
                               );
                             },

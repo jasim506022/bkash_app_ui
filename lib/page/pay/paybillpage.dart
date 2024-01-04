@@ -4,9 +4,10 @@ import '../../const/const.dart';
 import '../../globalcolor.dart';
 import '../../model/itemmodel.dart';
 import '../../widget/card_design_widget.dart';
-import '../../widget/drawerbuttonwidget.dart';
-import '../../widget/drawwidget.dart';
+import '../../widget/drawer_button_widget.dart';
+import '../../widget/draw_widget.dart';
 import '../../widget/globalmethod.dart';
+import '../../widget/row_icon_title_widget.dart';
 import '../../widget/search_name_number_widget.dart';
 
 class PayBillPage extends StatefulWidget {
@@ -118,14 +119,14 @@ class _PayBillPageState extends State<PayBillPage> {
                   ],
                 ),
               ),
-              Row(
+              const Row(
                 children: [
                   CardDesignWidget(
                     widget: RowIconTitleWidget(
                         image: "assets/pay_bill_image.png",
                         title: "Receipts & Tokens"),
                   ),
-                  const SizedBox(
+                  SizedBox(
                     width: 5,
                   ),
                   CardDesignWidget(
@@ -153,72 +154,60 @@ class _PayBillPageState extends State<PayBillPage> {
                   const SizedBox(
                     height: 10,
                   ),
-                  Container(
-                    height: mq.height * .32,
-                    padding: const EdgeInsets.all(0.0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: white,
-                      ),
-                      child: InkWell(
-                        child: GridView.builder(
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemBuilder: (context, index) {
-                              return GestureDetector(
-                                onTap: () {},
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Container(
-                                      height: mq.height * .05,
-                                      padding: const EdgeInsets.all(6),
-                                      decoration: BoxDecoration(
-                                          border: Border.all(
-                                              color: pink.withOpacity(.3))),
-                                      child: Image.asset(
-                                        organizationList[index].image,
-                                        color: pink,
-                                      ),
-                                    ),
-                                    FittedBox(
-                                      child: Text(
-                                        organizationList[index].title,
-                                        style: const TextStyle(
-                                            color: Colors.black87,
-                                            fontSize: 12),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            },
-                            itemCount: organizationList.length,
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 4,
-                              mainAxisSpacing: mq.width * .05,
-                              crossAxisSpacing: mq.width * .08,
-                            )),
-                      ),
-                    ),
-                  ),
+                  _builAllOrgnizationList(),
                 ],
               ),
-              Expanded(
-                child: SizedBox(
-                  height: mq.height,
-                  child: CardDesignWidget(
-                      widget: ListView.builder(
-                    itemCount: 10,
-                    itemBuilder: (context, index) {
-                      return Text("Bangladesh");
-                    },
-                  )),
-                ),
-              )
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  Container _builAllOrgnizationList() {
+    return Container(
+      height: mq.height * .32,
+      padding: const EdgeInsets.all(0.0),
+      child: Container(
+        decoration: BoxDecoration(
+          color: white,
+        ),
+        child: InkWell(
+          child: GridView.builder(
+              physics: const NeverScrollableScrollPhysics(),
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                  onTap: () {},
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        height: mq.height * .05,
+                        padding: const EdgeInsets.all(6),
+                        decoration: BoxDecoration(
+                            border: Border.all(color: pink.withOpacity(.3))),
+                        child: Image.asset(
+                          organizationList[index].image,
+                          color: pink,
+                        ),
+                      ),
+                      FittedBox(
+                        child: Text(
+                          organizationList[index].title,
+                          style: const TextStyle(
+                              color: Colors.black87, fontSize: 12),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
+              itemCount: organizationList.length,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 4,
+                mainAxisSpacing: mq.width * .05,
+                crossAxisSpacing: mq.width * .08,
+              )),
         ),
       ),
     );

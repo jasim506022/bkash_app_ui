@@ -1,21 +1,27 @@
-
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../const/const.dart';
 import '../globalcolor.dart';
 import '../model/contractmodel.dart';
-
+import 'contract_model_widget.dart';
 
 class ContractListWidget extends StatelessWidget {
   const ContractListWidget({
     super.key,
     required this.title,
-    required this.contractList, required this.widget,
+    required this.contractList,
+    this.isRemove = false,
+    this.isSentMoney = false,
+    this.recharge = false,
+    this.cashout = false,
   });
-
+  final bool? isRemove;
   final String title;
+  final bool? isSentMoney;
+  final bool? recharge;
+  final bool? cashout;
   final List<ContractModel> contractList;
-  final Widget widget;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +50,21 @@ class ContractListWidget extends StatelessWidget {
               ),
               Expanded(
                 child: SizedBox(
-                  child: widget
+                  child: ListView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: contractList.length,
+                    itemBuilder: (context, index) {
+                      return ChangeNotifierProvider.value(
+                        value: contractList[index],
+                        child: ContractModelWidget(
+                          isRemove: isRemove,
+                          isSentMoney: isSentMoney,
+                          recharge: recharge,
+                          cashout: cashout,
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ),
             ],

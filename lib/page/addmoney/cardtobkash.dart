@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 
 import '../../const/const.dart';
 import '../../globalcolor.dart';
-import '../../widget/drawerbuttonwidget.dart';
-import '../../widget/drawwidget.dart';
+import '../../widget/drawer_button_widget.dart';
+import '../../widget/draw_widget.dart';
 
 class CardToBkash extends StatefulWidget {
   const CardToBkash({super.key});
@@ -42,9 +42,10 @@ class _CardToBkashState extends State<CardToBkash>
       endDrawer: const DrawerWidget(),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+          padding: EdgeInsets.symmetric(
+              horizontal: mq.width * .033, vertical: mq.height * .012),
           child: SizedBox(
-            height: MediaQuery.of(context).size.height,
+            height: mq.height,
             child: Column(
               children: [
                 Card(

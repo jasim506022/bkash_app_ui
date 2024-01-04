@@ -50,9 +50,7 @@ class _BkashItemWidgetState extends State<BkashItemWidget> {
   @override
   Widget build(BuildContext context) {
     double containerHeight = isExpanded ? mq.height * .425 : mq.height * .28;
-    return 
-    
-    Container(
+    return Container(
       height: containerHeight,
       padding: const EdgeInsets.all(0.0),
       child: Container(
@@ -100,7 +98,7 @@ class _BkashItemWidgetState extends State<BkashItemWidget> {
                 ),
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: white,
+                    backgroundColor: isExpanded ? pink : white,
                     elevation: 3,
                   ),
                   onPressed: toggleExpansion,
@@ -108,8 +106,9 @@ class _BkashItemWidgetState extends State<BkashItemWidget> {
                     children: [
                       Text(
                         isExpanded ? 'Close' : 'See More',
+                        textAlign: TextAlign.center,
                         style: TextStyle(
-                            color: pink,
+                            color: isExpanded ? white : pink,
                             fontWeight: FontWeight.w700,
                             fontSize: 12),
                       ),
@@ -129,6 +128,5 @@ class _BkashItemWidgetState extends State<BkashItemWidget> {
         ),
       ),
     );
- 
   }
 }

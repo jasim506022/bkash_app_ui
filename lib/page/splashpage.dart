@@ -19,8 +19,9 @@ class _SplashPageState extends State<SplashPage> {
       SystemUiMode.immersive,
     );
     Future.delayed(const Duration(seconds: 2), () {
-      Navigator.pushReplacementNamed(context, AppsRoutes.loginPage);
+      Navigator.pushReplacementNamed(context, AppsRoutes.mainPage);
     });
+
     super.initState();
   }
 

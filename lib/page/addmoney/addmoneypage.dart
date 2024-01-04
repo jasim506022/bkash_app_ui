@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 
 import '../../const/const.dart';
 import '../../globalcolor.dart';
-import '../../widget/drawerbuttonwidget.dart';
-import '../../widget/drawwidget.dart';
+import '../../widget/drawer_button_widget.dart';
+import '../../widget/draw_widget.dart';
 import '../../widget/globalmethod.dart';
+import '../../widget/row_icon_title_widget.dart';
 import 'selectcardpage.dart';
 
 class AddMoneyPage extends StatefulWidget {
@@ -46,8 +47,9 @@ class _AddMoneyPageState extends State<AddMoneyPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 14, horizontal: 14),
+                        padding: EdgeInsets.symmetric(
+                            vertical: mq.height * .016,
+                            horizontal: mq.width * .033),
                         child: TextFormField(
                           decoration: const InputDecoration(
                               hintText: "Select your Add Money ",
@@ -95,9 +97,10 @@ class _AddMoneyPageState extends State<AddMoneyPage> {
                               ));
                         },
                         child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 10),
-                            child: RowIconTitleWidget(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: mq.width * .022,
+                                vertical: mq.height * .012),
+                            child: const RowIconTitleWidget(
                               isColor: true,
                               image: "assets/card.png",
                               title: "Card to Bkash",

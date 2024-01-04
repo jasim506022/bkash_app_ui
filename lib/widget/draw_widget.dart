@@ -1,3 +1,4 @@
+import 'package:bkash_app_ui/const/approutes.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -44,8 +45,7 @@ class DrawerWidget extends StatelessWidget {
                               backgroundColor: white,
                               side: BorderSide(color: pink, width: 1),
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(
-                                    40), // Optional: Add rounded corners
+                                borderRadius: BorderRadius.circular(40),
                               ),
                             ),
                             child: Text(
@@ -63,9 +63,7 @@ class DrawerWidget extends StatelessWidget {
                 image: 'assets/home.png',
                 title: 'Home',
                 function: () {
-                  if (kDebugMode) {
-                    print("Heome");
-                  }
+                  Navigator.pushNamed(context, AppsRoutes.mainPage);
                 },
               ),
               _listTitleItemWidget(
@@ -151,9 +149,11 @@ class DrawerWidget extends StatelessWidget {
                   title: 'Support'),
               _listTitleItemWidget(
                   function: () {
-                    if (kDebugMode) {
-                      print("Heome");
-                    }
+                    Navigator.pushNamedAndRemoveUntil(
+                      context,
+                      AppsRoutes.loginPage,
+                      (route) => false,
+                    );
                   },
                   context: context,
                   image: 'assets/log_out.png',

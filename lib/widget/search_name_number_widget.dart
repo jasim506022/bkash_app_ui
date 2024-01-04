@@ -1,16 +1,15 @@
 import 'package:bkash_app_ui/globalcolor.dart';
 import 'package:flutter/material.dart';
 
-// ignore: must_be_immutable
 class SearchNameNumberWidget extends StatelessWidget {
-  SearchNameNumberWidget(
+  const SearchNameNumberWidget(
       {super.key,
       required this.title,
       required this.function,
       this.isIconshow = true});
   final String title;
   final Function function;
-  bool isIconshow;
+  final bool? isIconshow;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -24,7 +23,7 @@ class SearchNameNumberWidget extends StatelessWidget {
         ),
         TextFormField(
           decoration: InputDecoration(
-              suffixIcon: isIconshow
+              suffixIcon: isIconshow!
                   ? IconButton(
                       onPressed: () {
                         function();

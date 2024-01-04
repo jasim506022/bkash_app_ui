@@ -6,3 +6,5 @@ Color grey = Colors.grey;
 Color backgroundColor = const Color(0xFFF8F8F8);
 Color green = Colors.green;
 Color black = Colors.black;
+Color forgetBackgroundColor = const Color(0xffF7F7F7);
+Color orange = Colors.orange;

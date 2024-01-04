@@ -1,20 +1,20 @@
 import 'package:bkash_app_ui/const/const.dart';
-import 'package:bkash_app_ui/widget/confirmshowdialogwidget.dart';
-import 'package:bkash_app_ui/widget/drawwidget.dart';
+import 'package:bkash_app_ui/widget/confirm_show_dialog_widget.dart';
+import 'package:bkash_app_ui/widget/draw_widget.dart';
 import 'package:bkash_app_ui/widget/globalmethod.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../globalcolor.dart';
 import '../../model/contractmodel.dart';
 import '../../widget/card_design_widget.dart';
-import '../../widget/confirmamountwidget.dart';
+import '../../widget/confirm_row_amount_widget.dart';
 import '../../widget/contract_model_widget.dart';
+import '../../widget/drawer_button_widget.dart';
 
 class ConfirmSentMoney extends StatefulWidget {
-  const ConfirmSentMoney(
-      {super.key, required this.contractModel, required this.amount});
+  const ConfirmSentMoney({super.key, required this.amount});
 
-  final ContractModel? contractModel;
   final String amount;
 
   @override
@@ -25,32 +25,16 @@ class _ConfirmSentMoneyState extends State<ConfirmSentMoney> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
+    final contractModel = Provider.of<ContractModel>(
+      context,
+    );
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
         title: const Text(
           "Sent Money",
         ),
-        actions: [
-          Padding(
-            padding:
-                EdgeInsets.only(top: mq.height * .014, right: mq.height * .014),
-            child: InkWell(
-              onTap: () {
-                scaffoldKey.currentState!.openDrawer();
-                if (scaffoldKey.currentState!.isDrawerOpen) {
-                  scaffoldKey.currentState!.closeEndDrawer();
-                } else {
-                  scaffoldKey.currentState!.openEndDrawer();
-                }
-              },
-              child: SizedBox(
-                  width: mq.width * .076,
-                  height: mq.width * .076,
-                  child: Image.asset('assets/logo.png')),
-            ),
-          )
-        ],
+        actions: [DrawerButtonWidget(scaffoldKey: scaffoldKey)],
       ),
       endDrawer: const DrawerWidget(),
       body: Padding(
@@ -58,19 +42,19 @@ class _ConfirmSentMoneyState extends State<ConfirmSentMoney> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              CardDesignWidget(
+              const CardDesignWidget(
                 widget: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                    Text(
                       "To",
                       style: TextStyle(
                           color: Colors.black54,
                           fontSize: 14,
                           fontWeight: FontWeight.bold),
                     ),
-                    ContractModelWidget(contractModel: widget.contractModel!)
+                    ContractModelWidget()
                   ],
                 ),
               ),
@@ -79,7 +63,7 @@ class _ConfirmSentMoneyState extends State<ConfirmSentMoney> {
                   children: [
                     Padding(
                       padding: EdgeInsets.symmetric(vertical: mq.height * .02),
-                      child: ConfirmAmountWidget(amount: widget.amount),
+                      child: ConfirmRowAmountWidget(amount: widget.amount),
                     ),
                     GlobalMethod.dividerLine(),
                     Column(
@@ -123,11 +107,12 @@ class _ConfirmSentMoneyState extends State<ConfirmSentMoney> {
                                 context: context,
                                 barrierDismissible: true,
                                 builder: (context) {
-                                  return ConfirmShowDialogWidget(
-                                    contractModel: widget.contractModel!,
-                                    title: 'Sent Money',
-                                    isSentMoney: true,
-                                  );
+                                  return ChangeNotifierProvider.value(
+                                      value: contractModel,
+                                      child: const ConfirmShowDialogWidget(
+                                        title: 'Sent Money',
+                                        isSentMoney: true,
+                                      ));
                                 },
                               );
                             },
